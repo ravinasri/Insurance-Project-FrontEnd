@@ -1,0 +1,66 @@
+<!-- <body background="https://ak7.picdn.net/shutterstock/videos/19525477/thumb/1.jpg"> -->
+  <!-- https://www.itl.cat/pngfile/big/48-481508_10-top-plain-light-blue-wallpaper-full-hd.jpg -->
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space"><h1 style="text-align: center;">User Details</h1></span>
+</mat-toolbar>
+
+
+<div class="container" *ngIf="!post; else forminfo" novalidate> 
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Name" formControlName="username">
+      <mat-error *ngIf="!name.valid && name.touched">
+        {{ titleAlert }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Emailaddress" formControlName="email">
+      <mat-error *ngIf="!formGroup.controls['email'].valid && formGroup.controls['email'].touched">
+        {{ getErrorEmail() }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field color="accent">
+      <mat-label>D.O.B</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="dob">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="!formGroup.controls['dob'].valid && formGroup.controls['dob'].touched">
+          <p>Field is required</p>
+        </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Phone Number(format: xxxxxxxxxx)" formControlName="phone_no" pattern="^\d{10}$">
+      <mat-error *ngIf="!formGroup.controls['phone_no'].valid && formGroup.controls['phone_no'].touched">
+      <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="Address" formControlName="address">
+      <mat-error *ngIf="!formGroup.controls['address'].valid && formGroup.controls['address'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+
+    <div class="form-element">
+      <mat-checkbox formControlName="validate" value="1">Name min. 3 characters</mat-checkbox>
+    </div>
+
+    <div class="form-element">
+      <!-- <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid"><a  routerLink="/helpers" class="btn btn-link">Submit Form</a></button> -->
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid"><a>Submit Form</a></button>
+    </div>
+
+  </form>
+</div>
+
+<ng-template #forminfo>
+  <div class="container">
+    {{ post | json }}
+  </div>
+</ng-template>
+<!-- </body> -->

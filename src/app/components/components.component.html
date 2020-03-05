@@ -1,0 +1,79 @@
+<mat-toolbar color="primary">
+  <span class="fill-remaining-space">
+    <h1 style="text-align: center;">Policy Details</h1>
+  </span>
+</mat-toolbar>
+
+<div class="container">
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+
+    <mat-form-field class="example-full-width">
+      <mat-label>User Id</mat-label>
+      <input matInput placeholder="1" value="" formControlName="user_id">
+      <mat-error *ngIf="!formGroup.controls['user_id'].valid && formGroup.controls['user_id'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Policy Type</mat-label>
+      <mat-select formControlName="policy_type">
+        <mat-option *ngFor="let policy_type of policy_type" [value]="policy_type.policy_type">
+          {{policy_type.policy_type}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.controls['policy_type'].valid && formGroup.controls['policy_type'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+
+    <br>
+    <br>
+    <mat-form-field>
+      <mat-label>Policy Plan</mat-label>
+      <mat-select formControlName="policy_plan">
+        <mat-option *ngFor="let policy_plan of policy_plan" [value]="policy_plan.policy_plan">
+          {{policy_plan.policy_plan}}</mat-option>
+      </mat-select>
+      <mat-error *ngIf="!formGroup.controls['policy_plan'].valid && formGroup.controls['policy_plan'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+
+
+    <mat-form-field color="accent">
+      <mat-label>Start Date</mat-label>
+      <input matInput [matDatepicker]="picker1" formControlName="start_date">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+      <mat-error *ngIf="!formGroup.controls['start_date'].valid && formGroup.controls['start_date'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+
+    <mat-form-field color="accent">
+      <mat-label>End Date</mat-label>
+      <input matInput [matDatepicker]="picker2" formControlName="end_date">
+      <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+      <mat-datepicker #picker2></mat-datepicker>
+      <mat-error *ngIf="!formGroup.controls['end_date'].valid && formGroup.controls['end_date'].touched">
+        <p>Field is required</p>
+      </mat-error>
+    </mat-form-field>
+    <br>
+    <br>
+
+
+
+    <br>
+    <br>
+    <div class="form-element">
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit Form</button>
+      <!-- [disabled]="!formGroup.valid" -->
+    </div>
+
+  </form>
+</div>
