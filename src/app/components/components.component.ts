@@ -18,6 +18,7 @@ export class ComponentsComponent {
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
+  id:any;
   
 
   constructor(private formBuilder: FormBuilder,private componentsservice:componentsservice,private router:Router) { }
@@ -27,6 +28,7 @@ export class ComponentsComponent {
   addpolicy:AddPolicy[];
 
   ngOnInit() {
+    this.id=sessionStorage.getItem('key');
     this.createForm();
     this.componentsservice.getPolicyType()
     .subscribe(

@@ -1,12 +1,26 @@
-<!-- <body background="https://ak7.picdn.net/shutterstock/videos/19525477/thumb/1.jpg"> -->
-  <!-- https://www.itl.cat/pngfile/big/48-481508_10-top-plain-light-blue-wallpaper-full-hd.jpg -->
-<mat-toolbar color="primary">
-  <span class="fill-remaining-space"><h1 style="text-align: center;">User Details</h1></span>
-</mat-toolbar>
+ <body background="https://automobiles.honda.com/-/media/Honda-Automobiles/Vehicles/2020/Fit/Color-Selector/Orange-Fury/FIT20-214_EXL_YR_585_Orange-Fury.png"  >  
+<!-- https://www.itl.cat/pngfile/big/48-481508_10-top-plain-light-blue-wallpaper-full-hd.jpg -->
+<!-- <mat-toolbar color="primary">
+  <span class="fill-remaining-space">
+    <h1 style="text-align: center;">User Details</h1>
+  </span>
+</mat-toolbar> -->
+<!-- background-image: url(/-/media/Honda-Automobiles/Vehicles/All-Vehicles/VehicleCards/all-vehicles-hero-img-1400-2x.jpg);
+} -->
 
+<br>
+<br>
 
-<div class="container" *ngIf="!post; else forminfo" novalidate> 
+<div class="container" *ngIf="!post; else forminfo" novalidate >
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
+<h1 style="font-weight:bolder;font-size: xx-large;color:cadetblue">User Details</h1>
+<br>
+
+    <mat-form-field class="form-element">
+      <input matInput placeholder="User Id" formControlName="user_id">
+      <mat-error *ngIf="!formGroup.controls['user_id'].valid && formGroup.controls['user_id'].touched">
+      </mat-error>
+    </mat-form-field>
 
     <mat-form-field class="form-element">
       <input matInput placeholder="Name" formControlName="username">
@@ -28,14 +42,14 @@
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
       <mat-error *ngIf="!formGroup.controls['dob'].valid && formGroup.controls['dob'].touched">
-          <p>Field is required</p>
-        </mat-error>
+        <p>Field is required</p>
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field class="form-element">
       <input matInput placeholder="Phone Number(format: xxxxxxxxxx)" formControlName="phone_no" pattern="^\d{10}$">
       <mat-error *ngIf="!formGroup.controls['phone_no'].valid && formGroup.controls['phone_no'].touched">
-      <p>Field is required</p>
+        <p>Field is required</p>
       </mat-error>
     </mat-form-field>
 
@@ -52,10 +66,12 @@
 
     <div class="form-element">
       <!-- <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid"><a  routerLink="/helpers" class="btn btn-link">Submit Form</a></button> -->
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid"><a>Submit Form</a></button>
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid"><a>Submit
+          Form</a></button>
     </div>
 
   </form>
+ 
 </div>
 
 <ng-template #forminfo>
@@ -63,4 +79,4 @@
     {{ post | json }}
   </div>
 </ng-template>
-<!-- </body> -->
+</body>

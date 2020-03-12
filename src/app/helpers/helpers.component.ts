@@ -10,11 +10,7 @@ import { Year } from './year';
 import { EngineCapacity } from './enginecapacity';
 import { SeatingCapacity } from './seatingcapacity';
 import { Router } from '@angular/router';
-// import { AddVehicle } from './addvehicle';
-// import { VehicleModel } from './vehiclemodel';
-// import { VehicleColor } from './vehiclecolor';
-// import { Place } from './Place';
-
+import { VehicleSubModel } from './vehiclesubmodel';
 interface Pokemon {
   value: string;
   viewValue: string;
@@ -32,31 +28,33 @@ interface PokemonGroup {
 })
 
 export class HelpersComponent {
-
-  // registration_place = new FormControl('', Validators.required);
+  vehicle_submodels:String;
   selectFormControl = new FormControl('', Validators.required);
   toppings = new FormControl('', Validators.required);
-
-
-  toppingList: string[] = ['1000 cc ', '2000 cc', '1500 cc To 2000 cc', '2000 cc To 3000 cc', '3000cc To 4000cc ', '4000cc To 5000cc', '5000cc To 6000cc', '1200cc', '6592cc', '6599 cc', '2,000-horsepower'];
 
   formGroup: FormGroup;
   titleAlert: string = 'This field is required';
   post: any = '';
+  id: any;
 
-  constructor(private formBuilder: FormBuilder, private helperservice: helperservice,private router:Router) { }
-   vehicle_color:VehicleColor[];
-   lstcomments:VehicleModel[];
-   registration_place: Place[];
-   manufacturing_year:Year[];
+  constructor(private formBuilder: FormBuilder, private helperservice: helperservice, private router: Router) { }
+  vehicle_color: VehicleColor[];
+  lstcomments: VehicleModel[];
+  vehicle_submodel:VehicleSubModel[];
+  registration_place: Place[];
+  manufacturing_year: Year[];
+  vehicledetails: AddVehicle[];
+  engine_capacity: EngineCapacity[];
+  seating_capacity: SeatingCapacity[];
 
 
-   vehicledetails:AddVehicle[];
-   engine_capacity:EngineCapacity[];
-   seating_capacity:SeatingCapacity[];
-   
 
   ngOnInit() {
+
+    this.id = sessionStorage.getItem('key');
+
+    console.log(this.id);
+
     this.createForm();
 
     this.helperservice.getRegPlaces()
@@ -67,26 +65,26 @@ export class HelpersComponent {
         }
       );
 
-      this.helperservice.getCapacity()
+    this.helperservice.getCapacity()
       .subscribe(
         data => {
           this.engine_capacity = data;
           console.log(data);
-         
+
         }
       );
 
-      this.helperservice.getSeatingCapacity()
+    this.helperservice.getSeatingCapacity()
       .subscribe(
         data => {
           this.seating_capacity = data;
           console.log(data);
-         
+
         }
       );
-      
 
-      this.helperservice.getYear()
+
+    this.helperservice.getYear()
       .subscribe(
         data => {
           this.manufacturing_year = data;
@@ -97,9 +95,11 @@ export class HelpersComponent {
       .subscribe(
         data => {
           this.lstcomments = data;
-          console.log("data"+this.lstcomments);
+          console.log("data" + this.lstcomments);
         }
       );
+
+    
 
     this.helperservice.getVehicleColor()
       .subscribe(
@@ -108,7 +108,7 @@ export class HelpersComponent {
         }
       );
   }
-           
+
   // ngOnInit() {
 
   //   // this.setChangeValidate()
@@ -124,20 +124,21 @@ export class HelpersComponent {
       'engine_number': [null, [Validators.required, Validators.pattern(engine_numberregex)]],
 
       'vehicle_model': [null, [Validators.required]],
-      'registration_place':[null, [Validators.required]],
-      
-      'id': [null, [Validators.required]],
+      'vehicle_submodel': [null, [Validators.required]],
+      'registration_place': [null, [Validators.required]],
+
+      'user_id': [null, [Validators.required]],
       'vehicle_color': [null, [Validators.required]],
       'seating_capacity': [null, [Validators.required]],
-      
+
       'idv': [null, [Validators.required]],
       'validate': '',
       'selectFormControl': new FormControl(['', [Validators.required]]),
-     
+
       // 'registration_place': new FormControl(['', [Validators.required]]),
       'toppings': new FormControl(['', [Validators.required]]),
-      'manufacturing_year':[null, [Validators.required]],
-      'engine_capacity':[null, [Validators.required]]
+      'manufacturing_year': [null, [Validators.required]],
+      'engine_capacity': [null, [Validators.required]]
 
     });
   }
@@ -174,33 +175,36 @@ export class HelpersComponent {
     })
   }
 
+  onSelect(event)
+  {
+    // alert(this.formGroup.get('vehicle_model').value);
 
+    this.vehicle_submodels=this.formGroup.get('vehicle_model').value;
+    this.helperservice.getVehicleSubModel(this.vehicle_submodels)
+    .subscribe(
+      data => {
+        this.vehicle_submodel = data;
+        
+        console.log("data" + this.vehicle_submodel);
+      }
+    );
+  }
   onSubmit(post) {
+
     this.post = post;
-  // alert(this.formGroup.get('registration_place').value);
-  alert(this.formGroup.get('seating_capacity').value);
-  //   var vehiclevalues=new AddVehicle();
-  //      vehiclevalues.user_id=1;
-  //   vehiclevalues.registration_number=90;
-  //   vehiclevalues.chassis_number=98;
-  //   vehiclevalues.engine_number=32;
-  //  vehiclevalues.registration_place="ariyalur";
-  //  vehiclevalues.manufacturing_year="2009";
-  //  vehiclevalues.vehicle_model="volvo";
-  //  vehiclevalues.seating_capacity=4;
-  //  vehiclevalues.engine_capacity="1320 cc";
-  //  vehiclevalues.vehicle_color="pink";
 
-        this.helperservice.addVehicleDetails(post)
-        .subscribe(
-             data=>
-             {
-               data=JSON.stringify(data);
-              this.vehicledetails=data;
-            }
-        );
+    //   var vehiclevalues=new AddVehicle();
+    //      vehiclevalues.user_id=1;
 
-        this.router.navigateByUrl('/components');
+    this.helperservice.addVehicleDetails(post)
+      .subscribe(
+        data => {
+          data = JSON.stringify(data);
+          this.vehicledetails = data;
+        }
+      );
+
+    this.router.navigateByUrl('/components');
   }
 
 }

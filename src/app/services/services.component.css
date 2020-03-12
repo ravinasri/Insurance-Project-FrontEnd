@@ -14,7 +14,10 @@
     max-width: 500px;
     width: 100%;
   }
-  
+.background
+{
+   background-repeat: no-repeat;
+}
   .form-element {
     padding: 5px 0px 25px 2px;
     width: 100%;
@@ -42,3 +45,13 @@
   .mat-radio-button ~ .mat-radio-button {
     margin-left: 16px;
   }
+
+  /* .cont{
+    position: relative;
+    width: 10%;
+    height: 450px;
+    padding: 10px 25px;
+    margin: 10vh auto;
+    background: #fff;
+    border-radius: 8px;
+  } */

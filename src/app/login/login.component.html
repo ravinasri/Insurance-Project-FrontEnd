@@ -1,32 +1,50 @@
+<body background="https://www.cdn.renault.com/content/dam/Renault/IN/vehicles/KWIDII%202019/Overview-page-images/Left-side-images/Final-Ar_Vk_Kwid-Climber_KV2-Shot_Studio_V6.jpg.ximg.l_full_m.smart.jpg" style=" background-repeat: no-repeat;">
+<h2>Please Login To Proceed!!!!</h2>
 
-<h1 style="color: darkblue;font-size: xx-large;">Login</h1>
-<br>
-
-<div style="max-width:400px;">
+<div class="cont">
+  
+  <div class="form">
+    <form [formGroup]="loginForm" (ngSubmit)="onSelect()">
     
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="username"><h1>Username</h1></label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+      <h1>Login</h1>
+     
+     <div class="form-group">
+        <label for="username">
+          <h3>  <b>Username</b></h3>
+        </label>
+        <input type="text" formControlName="username" class="user"
+            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
         <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
             <div *ngIf="f.username.errors.required">Username is required</div>
         </div>
     </div>
-    
     <div class="form-group">
-        <label for="password"><h1>Password</h1></label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+        <label for="password">
+           <h3><b> Password</b></h3>
+        </label>
+        <input type="password" formControlName="password" class="pass"
+            [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
         <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
             <div *ngIf="f.password.errors.required">Password is required</div>
         </div>
-    </div>
-    <br>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">
-            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
-            Login
-        </button>
-        <a routerLink="/register" class="btn btn-link">Register</a>
-    </div>
-</form>
+    </div> 
+      <!-- <input type="text"
+             class="user"
+             placeholder="Username"/>
+      <input type="password" 
+             class="pass"
+             placeholder="Password"/> -->
+      <button class="login"> <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>Login</button>
+    </form>
+  </div>
+  
+ 
+  
 </div>
+<div>.</div>
+<div>.</div>
+<div>.</div>
+<div>.</div>
+<div>.</div>
+<div>.</div>
+</body>

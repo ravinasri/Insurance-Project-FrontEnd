@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-
-
 import { AddUsers } from './addusers';
-import { UserName } from './username';
 import { servicesservice } from './services.service';
 import { Router } from '@angular/router';
 
 @Component({
-    selector: 'app-services',
-    templateUrl: './services.component.html',
-    styleUrls: ['./services.component.css']
-  })
+  selector: 'app-services',
+  templateUrl: './services.component.html',
+  styleUrls: ['./services.component.css']
+})
 export class ServicesComponent {
 
   formGroup: FormGroup;
@@ -20,24 +17,26 @@ export class ServicesComponent {
   post: any = '';
 
 
-  constructor(private formBuilder: FormBuilder,private servicesservice:servicesservice,private router:Router) { }
+  constructor(private formBuilder: FormBuilder, private servicesservice: servicesservice, private router: Router) { }
 
-  userdetails:AddUsers[];
-  
+  userdetails: AddUsers[];
+
 
   ngOnInit() {
+
     this.createForm();
-    
+
   }
 
   createForm() {
     let emailregex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     this.formGroup = this.formBuilder.group({
+      'user_id': [null, Validators.required],
       'email': [null, [Validators.required, Validators.pattern(emailregex)], this.checkInUseEmail],
       'username': [null, Validators.required],
-      'dob':  [null, Validators.required],
-      'address':[null, Validators.required],
-      'phone_no':[null, Validators.required],
+      'dob': [null, Validators.required],
+      'address': [null, Validators.required],
+      'phone_no': [null, Validators.required],
       'validate': ''
     });
   }
@@ -60,7 +59,7 @@ export class ServicesComponent {
     return this.formGroup.get('username') as FormControl
   }
 
- 
+
 
   checkInUseEmail(control) {
     // mimic http database access
@@ -80,35 +79,35 @@ export class ServicesComponent {
         this.formGroup.get('email').hasError('alreadyInUse') ? 'This emailaddress is already in use' : '';
   }
 
- 
+
 
   onSubmit(post) {
     this.post = post;
-  // alert(this.formGroup.get('registration_place').value);
-  alert(this.formGroup.get('email').value);
-  //   var vehiclevalues=new AddVehicle();
-  //      vehiclevalues.user_id=1;
-  //   vehiclevalues.registration_number=90;
-  //   vehiclevalues.chassis_number=98;
-  //   vehiclevalues.engine_number=32;
-  //  vehiclevalues.registration_place="ariyalur";
-  //  vehiclevalues.manufacturing_year="2009";
-  //  vehiclevalues.vehicle_model="volvo";
-  //  vehiclevalues.seating_capacity=4;
-  //  vehiclevalues.engine_capacity="1320 cc";
-  //  vehiclevalues.vehicle_color="pink";
 
-       this. servicesservice
-       .addusers(post)
-        .subscribe(
-             data=>
-             {
-               data=JSON.stringify(data);
-              this.userdetails=data;
-            }
-        );
-        this.router.navigateByUrl('/helpers');
+    // alert(this.formGroup.get('email').value);
+    //   var vehiclevalues=new AddVehicle();
+    //      vehiclevalues.user_id=1;
+   
+    this.servicesservice
+      .addusers(post)
+      .subscribe(
+        data => {
+          data = JSON.stringify(data);
+          this.userdetails = data;
+        }
+      );
+
+    // console.log("///////"+this.formGroup.get('user_id').value);
+    var value = this.formGroup.get('user_id').value;
+    var values = sessionStorage.setItem('key', value);
+
+    if (this.formGroup.get('user_id').value) {
+      this.router.navigateByUrl('/helpers');
+    }
+    else {
+      this.router.navigateByUrl('/app-pagenotfound');
+    }
   }
- 
+
 }
 

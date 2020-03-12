@@ -1,20 +1,27 @@
-<mat-toolbar color="primary">
+<body background="https://automobiles.honda.com/-/media/Honda-Automobiles/Vehicles/2020/Fit/Color-Selector/Orange-Fury/FIT20-214_EXL_YR_585_Orange-Fury.png"  >  
+<!-- <mat-toolbar color="primary">
   <span class="fill-remaining-space">
     <h1 style="text-align: center;">Policy Details</h1>
   </span>
 </mat-toolbar>
-
+<br>
+<br> -->
+<br>
 <div class="container">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit(formGroup.value)" class="form">
-
+    <br>
+    <h1 style="font-weight:bolder;font-size: xx-large;color:cadetblue">Policy Details</h1>
+    <br>
     <mat-form-field class="example-full-width">
       <mat-label>User Id</mat-label>
-      <input matInput placeholder="1" value="" formControlName="user_id">
+      <input matInput placeholder="User Id" [(ngModel)]="id" formControlName="user_id">
       <mat-error *ngIf="!formGroup.controls['user_id'].valid && formGroup.controls['user_id'].touched">
         <p>Field is required</p>
       </mat-error>
     </mat-form-field>
-
+    <br>
+    <br>
+    <br>
     <mat-form-field>
       <mat-label>Policy Type</mat-label>
       <mat-select formControlName="policy_type">
@@ -26,6 +33,7 @@
       </mat-error>
     </mat-form-field>
 
+    <br>
     <br>
     <br>
     <mat-form-field>
@@ -40,11 +48,11 @@
     </mat-form-field>
     <br>
     <br>
-
+    <br>
 
     <mat-form-field color="accent">
       <mat-label>Start Date</mat-label>
-      <input matInput [matDatepicker]="picker1" formControlName="start_date">
+      <input matInput [matDatepicker]="picker1" formControlName="start_date" id="start_date">
       <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
       <mat-datepicker #picker1></mat-datepicker>
       <mat-error *ngIf="!formGroup.controls['start_date'].valid && formGroup.controls['start_date'].touched">
@@ -53,10 +61,11 @@
     </mat-form-field>
     <br>
     <br>
+    <br>
 
     <mat-form-field color="accent">
       <mat-label>End Date</mat-label>
-      <input matInput [matDatepicker]="picker2" formControlName="end_date">
+      <input matInput [matDatepicker]="picker2" formControlName="end_date" id="end_date">
       <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
       <mat-datepicker #picker2></mat-datepicker>
       <mat-error *ngIf="!formGroup.controls['end_date'].valid && formGroup.controls['end_date'].touched">
@@ -65,15 +74,14 @@
     </mat-form-field>
     <br>
     <br>
-
-
-
     <br>
-    <br>
+
     <div class="form-element">
-      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit Form</button>
+      <button mat-raised-button color="primary" type="submit" class="button" [disabled]="!formGroup.valid">Submit
+        Form</button>
       <!-- [disabled]="!formGroup.valid" -->
     </div>
 
   </form>
 </div>
+</body>

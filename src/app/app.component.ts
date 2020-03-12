@@ -1,34 +1,28 @@
 
 import { Component } from '@angular/core';
-
 import { Router } from '@angular/router';
-import { AuthenticationService } from './services';
-import { User } from './models';
+// import { AuthenticationService } from './services';
+// import { User } from './models/models.component';
 import { faCar } from '@fortawesome/free-solid-svg-icons'
-
 
 @Component({ selector: 'app', templateUrl: 'app.component.html', styleUrls: ['./app.component.css'] })
 export class AppComponent {
 
-    
-    faCar=faCar;
-    currentUser: User;
 
-    
-
-
+    faCar = faCar;
+    // currentUser: User;
 
     constructor(
-      
+
         private router: Router,
-        private authenticationService: AuthenticationService
+        // private authenticationService: AuthenticationService
     ) {
-        this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+        // this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
     }
 
 
     logout() {
-        this.authenticationService.logout();
+        // this.authenticationService.logout();
         this.router.navigate(['/login']);
     }
 }
